@@ -1,3 +1,14 @@
+from fastapi import FastAPI
+
+# Create an instance of the FastAPI class
+app = FastAPI()
+
+# Define a route and corresponding handler function
+@app.get("/")
+async def read_root():
+    return {"message": "Hello, world!"}
+
+
 # Function that reads and prints chat log to screen from a given file path.
 def read_chat_log(file_path):
     try:

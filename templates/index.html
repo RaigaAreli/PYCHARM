@@ -16,5 +16,24 @@
         <input type="file" name="file">
         <button type="submit">Upload</button>
     </form>
+
+    <script>
+        // Function to make AJAX request to FastAPI backend
+        function fetchData() {
+            fetch('/api')
+                .then(response => response.json())
+                .then(data => {
+                    // Display the message from the backend on the page
+                    document.getElementById('message').innerText = data.message;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('message').innerText = 'Error fetching data';
+                });
+        }
+
+        // Call fetchData function when the page loads
+        window.onload = fetchData;
+    </script>
 </body>
 </html>

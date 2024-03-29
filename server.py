@@ -3,17 +3,6 @@ from waitress import serve
 
 app = Flask(__name__)
 
-
-# Function that reads chat log from a given file path
-def read_chat_log(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            chat_log = file.read()
-        return chat_log
-    except FileNotFoundError:
-        return None
-
-
 # Function to parse chat log and calculate participation grades
 def calculate_participation_grades(chat_log):
     stud_answers = {}
@@ -33,16 +22,13 @@ def calculate_participation_grades(chat_log):
 
     return stud_answers
 
-
 # Function to calculate grade percentage
 def calculate_grade_percentage(grade):
     return (grade / 5) * 100
 
-
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -55,6 +41,5 @@ def upload():
             return render_template('results.html', participation_grades=participation_grades)
     return render_template('index.html', error='Please select a file.')
 
-
 if __name__ == '__main__':
-    serve(app, debug=True)
+    serve(app, host='0.0.0.0', port=8080)

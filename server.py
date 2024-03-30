@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from waitress import serve
-from main import process_chat_log  # Import the function from your main Python file
+from main import read_chat_log  # Import the function from your main Python file
 
 app = Flask(__name__)
 

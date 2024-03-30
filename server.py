@@ -16,11 +16,12 @@ def upload():
             chat_log_content = file.read().decode('utf-8')
             # Call the function to process the uploaded chat log
             participation_grades = read_chat_log(chat_log_content)
-            grades = calculate_grade_percentage(participation_grades)
-            display_grades(grades)
             if participation_grades is not None:
+                # Calculate grade percentage
+                grades = calculate_grade_percentage(participation_grades)
                 # Display grades before returning the template
-                display_grades()
+                display_grades(grades)
+                # Render the results template with participation grades
                 return render_template('results.html', participation_grades=participation_grades)
             else:
                 return render_template('index.html', error='Error processing the file.')

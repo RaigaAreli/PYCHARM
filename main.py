@@ -1,12 +1,25 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
+from typing import List
 
-# Create an instance of the FastAPI class
 app = FastAPI()
 
-# Define a route and corresponding handler function
-@app.get("/")
-async def read_root():
-    return {"message": "Hello, world!"}
+# Define a route to receive file uploads
+@app.post("/upload/")
+async def upload_file(files: List[UploadFile] = File(...)):
+    for file in files:
+        chat_log = await file.read()
+        # Process the chat log here
+        # For example:
+        lines = chat_log.decode().split("\n")
+        for line in lines:
+            # Process each line of the chat log
+            pass
+    return {"message": "File(s) uploaded successfully"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
 
 
 # Function that reads and prints chat log to screen from a given file path.

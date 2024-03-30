@@ -22,7 +22,7 @@ def upload():
                 # Display grades before returning the template
                 display_grades(grades)
                 # Render the results template with participation grades
-                return render_template('results.html', participation_grades=participation_grades)
+                return render_template('results.html', participation_grades=participation_grades, grades=grades)
             else:
                 return render_template('index.html', error='Error processing the file.')
     return render_template('index.html', error='Please select a file.')

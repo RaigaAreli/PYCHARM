@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from waitress import serve
-from main import read_chat_log  # Import the function from your main Python file
+from main import read_chat_log, display_grades  # Import the functions from your main Python file
 
 app = Flask(__name__)
 
@@ -15,8 +15,13 @@ def upload():
         if file:
             chat_log_content = file.read().decode('utf-8')
             # Call the function to process the uploaded chat log
-            participation_grades = process_chat_log(chat_log_content)
-            return render_template('results.html', participation_grades=participation_grades)
+            participation_grades = read_chat_log(chat_log_content)
+            if participation_grades is not None:
+                # Display grades before returning the template
+                display_grades()
+                return render_template('results.html', participation_grades=participation_grades)
+            else:
+                return render_template('index.html', error='Error processing the file.')
     return render_template('index.html', error='Please select a file.')
 
 if __name__ == '__main__':

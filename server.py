@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from waitress import serve
-from main import read_chat_log, display_grades  # Import the functions from your main Python file
+from main import read_chat_log, display_grades, calculate_grade_percentage  # Import the functions from your main Python file
 
 app = Flask(__name__)
 
@@ -16,6 +16,8 @@ def upload():
             chat_log_content = file.read().decode('utf-8')
             # Call the function to process the uploaded chat log
             participation_grades = read_chat_log(chat_log_content)
+            grades = calculate_grade_percentage(participation_grades)
+            display_grades(grades)
             if participation_grades is not None:
                 # Display grades before returning the template
                 display_grades()
